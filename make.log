@@ -1,0 +1,81 @@
+In file included from engines/hdcs.c:8:0:
+/usr/local/include/hdcs/libhdcs.h:7:1: error: unknown type name ‘namespace’
+ namespace hdcs {
+ ^
+/usr/local/include/hdcs/libhdcs.h:7:16: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ namespace hdcs {
+                ^
+/usr/local/include/hdcs/libhdcs.h:19:1: error: unknown type name ‘class’
+ class libhdcs {
+ ^
+/usr/local/include/hdcs/libhdcs.h:19:15: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ class libhdcs {
+               ^
+engines/hdcs.c:21:3: error: unknown type name ‘libhdcs’
+   libhdcs* hdcs_inst;
+   ^
+engines/hdcs.c: In function ‘_fio_hdcs_connect’:
+engines/hdcs.c:74:20: error: ‘new’ undeclared (first use in this function)
+  hdcs->hdcs_inst = new libhdcs();
+                    ^
+engines/hdcs.c:74:20: note: each undeclared identifier is reported only once for each function it appears in
+engines/hdcs.c:74:24: error: expected ‘;’ before ‘libhdcs’
+  hdcs->hdcs_inst = new libhdcs();
+                        ^
+engines/hdcs.c:72:6: warning: unused variable ‘r’ [-Wunused-variable]
+  int r;
+      ^
+engines/hdcs.c:71:23: warning: unused variable ‘o’ [-Wunused-variable]
+  struct hdcs_options *o = td->eo;
+                       ^
+engines/hdcs.c: In function ‘_fio_hdcs_disconnect’:
+engines/hdcs.c:85:3: error: unknown type name ‘delete’
+   delete hdcs->hdcs_inst;
+   ^
+engines/hdcs.c:85:14: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+   delete hdcs->hdcs_inst;
+              ^
+engines/hdcs.c:85:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   delete hdcs->hdcs_inst;
+   ^
+engines/hdcs.c: In function ‘_fio_hdcs_finish_aiocb’:
+engines/hdcs.c:99:8: warning: implicit declaration of function ‘hdcs_aio_get_return_value’ [-Wimplicit-function-declaration]
+  ret = hdcs_aio_get_return_value(fri->completion);
+        ^
+engines/hdcs.c: In function ‘hdcs_io_u_wait_complete’:
+engines/hdcs.c:144:2: warning: implicit declaration of function ‘hdcs_aio_wait_for_complete’ [-Wimplicit-function-declaration]
+  hdcs_aio_wait_for_complete(fri->completion);
+  ^
+engines/hdcs.c: In function ‘fio_hdcs_queue’:
+engines/hdcs.c:255:38: warning: passing argument 2 of ‘hdcs_aio_create_completion’ from incompatible pointer type [-Wincompatible-pointer-types]
+  r = hdcs_aio_create_completion(fri, _fio_hdcs_finish_aiocb,
+                                      ^
+In file included from engines/hdcs.c:8:0:
+/usr/local/include/hdcs/libhdcs.h:17:12: note: expected ‘callback_t {aka void (*)(int,  void *)}’ but argument is of type ‘void (*)(void *, void *)’
+ static int hdcs_aio_create_completion(void *cb_arg, callback_t complete_cb, hdcs_completion_t *c);
+            ^
+engines/hdcs.c:263:7: warning: implicit declaration of function ‘hdcs_aio_write’ [-Wimplicit-function-declaration]
+   r = hdcs_aio_write(io_u->xfer_buf, io_u->offset, io_u->xfer_buflen, fri->completion);
+       ^
+engines/hdcs.c:270:7: warning: implicit declaration of function ‘hdcs_aio_read’ [-Wimplicit-function-declaration]
+   r = hdcs_aio_read(io_u->xfer_buf, io_u->offset, io_u->xfer_buflen, fri->completion);
+       ^
+engines/hdcs.c:246:20: warning: unused variable ‘hdcs’ [-Wunused-variable]
+  struct hdcs_data *hdcs = td->io_ops->data;
+                    ^
+engines/hdcs.c: In function ‘fio_hdcs_setup’:
+engines/hdcs.c:386:22: error: ‘info’ undeclared (first use in this function)
+  f->real_file_size = info.size;
+                      ^
+engines/hdcs.c:394:1: warning: label ‘disconnect’ defined but not used [-Wunused-label]
+ disconnect:
+ ^
+In file included from engines/hdcs.c:8:0:
+engines/hdcs.c: At top level:
+/usr/local/include/hdcs/libhdcs.h:16:13: warning: ‘hdcs_aio_release’ used but never defined
+ static void hdcs_aio_release(hdcs_completion_t c);
+             ^
+/usr/local/include/hdcs/libhdcs.h:17:12: warning: ‘hdcs_aio_create_completion’ used but never defined
+ static int hdcs_aio_create_completion(void *cb_arg, callback_t complete_cb, hdcs_completion_t *c);
+            ^
+make: *** [engines/hdcs.o] Error 1
