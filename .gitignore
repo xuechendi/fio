@@ -1,4 +1,3 @@
-*.d
 *.o
 /.depend
 /FIO-VERSION-FILE
