@@ -25,14 +25,21 @@ struct hdcs_data {
 
 struct hdcs_options {
 	void *pad;
-	char *cluster_name;
 	char *hdcs_name;
-	char *pool_name;
-	char *client_name;
 	int busy_poll;
 };
 
 static struct fio_option options[] = {
+  {	
+		.name	= "hdcs_name",
+		.lname	= "hdcs instance name",
+		.type	= FIO_OPT_STR_STORE,
+		.off1	= offsetof(struct hdcs_options, hdcs_name),
+		.help	= "Different hdcs name will reflect in different cache name",
+		.def	= "hdcs",
+		.category = FIO_OPT_C_ENGINE,
+		.group	= FIO_OPT_G_RBD,
+	},
 };
 
 static int _fio_setup_hdcs_data(struct thread_data *td,
@@ -68,8 +75,9 @@ failed:
 static int _fio_hdcs_connect(struct thread_data *td)
 {
 	struct hdcs_data *hdcs = td->io_ops->data;
+	struct hdcs_options *o = td->eo;
 
-	hdcs_open(&(hdcs->io));
+	hdcs_open(&(hdcs->io), o->hdcs_name);
 	return 0;
 
 }
@@ -381,7 +389,7 @@ static int fio_hdcs_setup(struct thread_data *td)
 		td->o.open_files++;
 	}
 	f = td->files[0];
-	f->real_file_size = 1073741824;
+	f->real_file_size = 107374182400;
 
 	/* disconnect, then we were only connected to determine
 	 * the size of the RBD.
