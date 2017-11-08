@@ -18,7 +18,7 @@ struct fio_hdcs_iou {
 };
 
 struct hdcs_data {
-  hdcs_ioctx_t io;
+  void* io;
 	struct io_u **aio_events;
 	struct io_u **sort_events;
 };
